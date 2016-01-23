@@ -9,6 +9,7 @@
 				</div>
 		<div class="panel-body">
 		<?php LoadView(); ?>
+
 		</div>
 	</div>
 </div>

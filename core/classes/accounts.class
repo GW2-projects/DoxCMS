@@ -1,0 +1,13 @@
+<?php
+
+class Accounts {
+	public $db;
+	public $tprefix;
+	public function __construct() {
+		$this->db = new DDB();
+		$this->tprefix = TPREFIX;
+	}
+	public function Register($arg,$ar2,$arg3) {
+		print_r($POST);
+	}
+}
