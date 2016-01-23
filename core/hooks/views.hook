@@ -1,0 +1,5 @@
+<?php
+function LoadView() {
+	$function = new View();
+	echo $function->LoadView();
+}

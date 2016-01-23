@@ -1,0 +1,34 @@
+<?php
+require_once(dirname(__file__).'/themes.class');
+
+class Navigation {
+	public $db;
+	public $tprefix;
+	public $theme;
+	public function __construct() {
+		$this->db = new DDB();
+		$this->tprefix = TPREFIX;
+		$this->theme = new Themes();
+	}
+	public function buildMenu($permissions, $menu) {
+		$query = <<<SQL
+		SELECT title,link,target
+		FROM {$this->tprefix}pages
+		WHERE menu = :menu
+		AND status = :1
+SQL;
+		$resource = $this->db->db->prepare( $query );
+			$resource->execute( array (
+			":menu"	=> $menu,
+			":1"	=> 1,
+			));
+			foreach($resource as $row) {
+				$title = $row['title'];
+				$pagelink = $row['link'];
+				$target = $row['target'];
+				$this->theme->LoadFunction("singleItem");
+				LoadSingleNav($pagelink,$target,$title);
+			}
+		
+	}
+}

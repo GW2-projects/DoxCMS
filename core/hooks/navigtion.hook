@@ -1,0 +1,6 @@
+<?php
+
+function buildMenu($arg, $arg2) {
+	$function = new Navigation();
+	return $function->buildMenu($arg, $arg2);
+}

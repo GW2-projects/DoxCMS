@@ -1,0 +1,25 @@
+<?php
+function ActiveTheme($arg) {
+	$function = new Themes();
+	return $function->ActiveTheme($arg);
+}
+function LoadActiveTheme() {
+	$function = new Themes();
+	return $function->LoadActiveTheme();
+}
+function LoadPart($arg) {
+	$function = new Themes();
+	return $function->LoadPart($arg);
+}
+function LoadFunction($arg) {
+	$function = new Themes();
+	return $function->LoadFunction($arg);
+}
+function InstantiateMenus($arg) {
+	$function = new Themes();
+	return $function->InstantiateMenus($arg);
+}
+function InstantiateModules($arg) {
+	$function = new Themes();
+	return $function->InstantiateModules($arg);
+}

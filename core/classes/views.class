@@ -1,0 +1,40 @@
+<?php
+
+class View {
+	public $db;
+	public $tprefix;
+	public function __construct() {
+		$this->db = new DDB();
+		$this->tprefix = TPREFIX;
+	}
+	public function LoadView() {
+		if(!isset($_GET['view'])) {
+			DEFINE("TITLE", "Home");
+			return "Home";
+		}
+		else {
+		return self::GetViewDetails($_GET['view']);
+		}
+	}
+	public function GetViewDetails($arg) {
+		$query = <<<SQL
+		SELECT type,content,title
+		FROM {$this->tprefix}pages
+		WHERE link = :arg
+SQL;
+		$resource = $this->db->db->prepare( $query );
+		$resource->execute( array (
+		":arg"	=> "/".$arg,
+		));
+
+		$result = $resource->fetch(PDO::FETCH_ASSOC);
+		if($result['type'] == 1) {
+			DEFINE("TITLE", $result['title']);
+			include_once(VIEW_PATH."/".$result['content'].".php");
+		}
+		else {
+			DEFINE("TITLE", $result['title']);
+			return $result['content'];
+		}
+	}
+}

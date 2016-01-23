@@ -1,0 +1,30 @@
+<?php
+class Themes {
+	public function ActiveTheme($arg) {
+		//Accepted Arguments
+		//name,include,link
+		switch($arg) {
+			case "name": return ACTIVE_THEME; break;
+			case "include": return THEME_PATH.'/'.ACTIVE_THEME; break;
+			case "link":
+			$replace = str_replace(ROOT_PATH, "", THEME_PATH);
+			$path = "//".$_SERVER['HTTP_HOST'].''.$replace.'/'.ACTIVE_THEME;
+			return $path; break;
+		}
+	}
+	public function LoadActiveTheme() {
+		include_once(self::ActiveTheme("include").'/index.tpl');
+	}
+	public function LoadPart($arg) {
+			include(self::ActiveTheme("include").'/'.$arg.'.tpl');
+	}
+	public function LoadFunction($arg) {
+			include_once(self::ActiveTheme("include").'/'.$arg.'.tpl');
+	}
+	public function InstantiateMenus($arg) {
+		$menuarray = explode(",", $arg);
+	}
+	public function InstantiateModules($arg) {
+		$modulearray = explode(",", $arg);
+	}
+}
