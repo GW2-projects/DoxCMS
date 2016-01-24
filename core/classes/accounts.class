@@ -15,10 +15,33 @@ class Accounts {
 			return false;
 		}
 	}
-	public function Register($arg,$arg2,$arg3) {
-		self::CreateUserFolder($arg,$arg2,$arg3);
-		self::CreateFTPAccount($arg,$arg2);
+	public function Login($arg1, $arg2) {
+		$query = <<<SQL
+		SELECT id
+		FROM {$this->tprefix}accounts
+		WHERE password = :pass
+SQL;
+		$resource = $this->db->db->prepare( $query );
+			$resource->execute( array (
+			":pass"	=> sha1(strtoupper($arg1.':'.$arg2)),
+			));
+		if($resource->rowCount() == 0 ) {
+			echo "WrongLogon";
+		}
+		else {
+			$result = $resource->fetch(PDO::FETCH_ASSOC);
+			echo $result['id'];
+			self::SetSession($result['id']);
+		}
 	}
+	public function SetSession($arg) {
+		session_start();
+		$_SESSION['user']['id'] = $arg;
+	}
+	public function Register($arg,$arg2,$arg3) {
+	}
+	
+	/*For Use As FTP Plugin Later On.
 	public function CreateUserFolder($arg,$arg2,$arg3) {
 		if(file_exists(ROOT_PATH.'/accounts/'.$arg)) {
 			echo "User Exists";
@@ -48,4 +71,5 @@ SQL;
 		}
 		
 	}
+	*/
 }

@@ -9,4 +9,11 @@ switch($_POST['process']) {
 	case "register":
 	echo Register($_POST['username'],$_POST['password'],$_POST['email']);
 	break;
+	case "login":
+	echo Login($_POST['username'], $_POST['password']);
+	break;
+	case "logout":
+	session_start();
+	session_destroy();
+	break;
 }
