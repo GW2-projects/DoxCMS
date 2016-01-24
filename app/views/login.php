@@ -1,6 +1,5 @@
 <?php 
 if(SessionLive() == false) { 
-print_r($_SESSION);
 ?>
 <form>
 <div class="text-center col-xs-6 col-xs-offset-3">
@@ -10,6 +9,7 @@ print_r($_SESSION);
 <p><sub class="passerror"></sub></p>
 <p><input type="submit" class="btn btn-info form-control" value="Login" id="login_button"></p>
 </form>
+<sub class="error_login"></sub>
 </div>
 
 <script>
@@ -45,7 +45,14 @@ data: dataString,
 cache: false,
 beforeSend: function(){ $("#login_button").val('Validating Login');},
 success: function(data){
-alert(data);
+if(isNaN(data) == true) {
+	$("#login_button").val("Login");
+	$(".error_login").html("<p class='alert alert-danger'>Incorrect Login Details</p>");
+}
+else {
+	location.reload();
+}
+
 
 }
 }) 
@@ -55,6 +62,8 @@ alert(data);
 </script>
 <?php } else {
 	?>
-	Logged In
+	<div class="col-xs-6 col-xs-offset-3 text-center">
+	<p class="alert alert-success">Logged in</p>
+	</div>
 	<?php
 }
