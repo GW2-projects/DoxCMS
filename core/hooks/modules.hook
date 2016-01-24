@@ -1,0 +1,5 @@
+<?php
+function LoadModule($arg) {
+	$function = new Modules();
+	echo $function->LoadModule($arg);
+}

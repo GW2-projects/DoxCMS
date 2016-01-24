@@ -1,0 +1,18 @@
+<?php
+class Modules {
+	public $modulepath;
+	
+	public function __construct() {
+		$this->modulepath = MODULE_PATH;
+	}
+	public function LoadModule($arg) {
+		//$arg = Position
+		foreach(glob($this->modulepath.'/*/module.xml') as $module) {
+			$settings = simplexml_load_file($module);
+				if($settings->settings->pos == $arg) {
+					$modulefile = str_replace("module.xml", "module.tpl", $module);
+					include_once($modulefile);
+				}
+		}
+	}
+}

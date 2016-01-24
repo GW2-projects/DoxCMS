@@ -1,0 +1,9 @@
+<module>
+	<title>Register Modal</title>
+	<author>Guild Emporium</author>
+	<website>https://guildemporium.net</website>
+<settings>
+	<version>1.0</version>
+	<pos>NavRight</pos>
+</settings>
+</module>
