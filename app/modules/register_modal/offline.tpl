@@ -1,7 +1,7 @@
  
- <li><a href="#">Link</a></li>
+ <li><a><i>Welcome Guest</i></a></li>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Login or Register <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="/login">Login</a></li>
             <li><a data-toggle="modal" data-target="#userModal">Register</a></li>
