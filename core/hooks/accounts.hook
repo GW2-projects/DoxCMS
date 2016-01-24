@@ -1,4 +1,8 @@
 <?php
+function SessionLive() {
+	$function = new Accounts();
+	return $function->SessionLive();
+}
 function Register($arg,$arg2,$arg3) {
 	$function = new Accounts();
 	return $function->Register($arg,$arg2,$arg3);

@@ -7,6 +7,14 @@ class Accounts {
 		$this->db = new DDB();
 		$this->tprefix = TPREFIX;
 	}
+	public function SessionLive() {
+		if(isset($_SESSION['user']['id'])) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 	public function Register($arg,$arg2,$arg3) {
 		self::CreateUserFolder($arg,$arg2,$arg3);
 		self::CreateFTPAccount($arg,$arg2);
