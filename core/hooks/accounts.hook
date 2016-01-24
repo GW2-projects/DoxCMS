@@ -3,6 +3,13 @@ function SessionLive() {
 	$function = new Accounts();
 	return $function->SessionLive();
 }
+function SessionID() {
+	return $_SESSION['user']['id'];
+	}	
+function UserDetails($arg1, $arg2) {
+	$function = new Accounts();
+	return $function->UserDetails($arg1, $arg2);
+}
 function Login($arg1, $arg2) {
 	$function = new Accounts();
 	return $function->Login($arg1, $arg2);

@@ -15,6 +15,48 @@ class Accounts {
 			return false;
 		}
 	}
+	public function UserDetails($arg1, $arg2) {
+		//arg1 = User ID
+		//arg2 = Detail
+		switch($arg2) {
+			case "username":
+			return self::Username($arg1);
+			break;
+			case "gravatar":
+			return self::Gravatar($arg1);
+			break;
+		}
+	}
+	public function Username($arg1) {
+		$query = <<<SQL
+		SELECT uname
+		FROM {$this->tprefix}accounts
+		WHERE id = :arg1
+SQL;
+		$resource = $this->db->db->prepare( $query );
+			$resource->execute( array (
+			":arg1"	=> $arg1,
+			));
+			$result = $resource->fetch(PDO::FETCH_ASSOC);
+			return ucfirst($result['uname']);
+	}
+	public function Gravatar($arg) {
+		$query = <<<SQL
+		SELECT email
+		FROM {$this->tprefix}accounts
+		WHERE id = :arg1
+SQL;
+		$resource = $this->db->db->prepare( $query );
+			$resource->execute( array (
+			":arg1"	=> $arg,
+			));
+			$result = $resource->fetch(PDO::FETCH_ASSOC);
+			$default = "//gravatar.com/avatar";
+			$email = $result['email'];
+			$size = 80;
+			$grav_url = "http://www.gravatar.com/avatar/" . md5( strtolower( trim( $email ) ) ) . "?d=" . urlencode( $default ) . "&s=" . $size;
+			return "<img src='".$grav_url."' alt=''>";
+	}
 	public function Login($arg1, $arg2) {
 		$query = <<<SQL
 		SELECT id
@@ -40,7 +82,6 @@ SQL;
 	}
 	public function Register($arg,$arg2,$arg3) {
 	}
-	
 	/*For Use As FTP Plugin Later On.
 	public function CreateUserFolder($arg,$arg2,$arg3) {
 		if(file_exists(ROOT_PATH.'/accounts/'.$arg)) {

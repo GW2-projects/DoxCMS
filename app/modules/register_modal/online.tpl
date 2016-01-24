@@ -1,5 +1,5 @@
  
- <li><a><i>Welcome {User}</i></a></li>
+ <li><a><i>Welcome <?php echo UserDetails(SessionID(), "username"); ?></i></a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Quick Actions <span class="caret"></span></a>
           <ul class="dropdown-menu">
