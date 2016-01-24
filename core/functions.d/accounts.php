@@ -7,6 +7,6 @@ else {
 }
 switch($_POST['process']) {
 	case "register":
-	echo ROOT_PATH;
+	echo Register($_POST['username'],$_POST['password'],$_POST['email']);
 	break;
 }

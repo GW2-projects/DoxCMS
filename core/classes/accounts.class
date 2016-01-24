@@ -7,7 +7,37 @@ class Accounts {
 		$this->db = new DDB();
 		$this->tprefix = TPREFIX;
 	}
-	public function Register($arg,$ar2,$arg3) {
-		print_r($POST);
+	public function Register($arg,$arg2,$arg3) {
+		self::CreateUserFolder($arg,$arg2,$arg3);
+		self::CreateFTPAccount($arg,$arg2);
+	}
+	public function CreateUserFolder($arg,$arg2,$arg3) {
+		if(file_exists(ROOT_PATH.'/accounts/'.$arg)) {
+			echo "User Exists";
+
+		}
+		else {
+		mkdir(ROOT_PATH.'/accounts/'.$arg, 0777, true);
+		self::CreateFTPAccount($arg,$arg2,$arg3);
+		}
+	}
+	public function CreateFTPAccount($arg,$arg2,$arg3) {
+		try {
+		$query = <<<SQL
+		INSERT INTO {$this->tprefix}ftpuser(userid,passwd,homedir)
+		VALUES(:userid,:passwd,:homedir)
+SQL;
+		$resource = $this->db->db->prepare( $query );
+		$resource->execute( array (
+		":userid"	=> $arg,
+		":passwd"	=> crypt($arg2, "salt"),
+		":homedir"	=> "/var/www/html/accounts/".$arg,
+		));
+		echo "Inserted";
+		}
+		catch(Exception $e) {
+			echo $e->getMessage();
+		}
+		
 	}
 }

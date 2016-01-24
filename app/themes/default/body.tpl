@@ -9,7 +9,7 @@
 				</div>
 		<div class="panel-body">
 		<?php LoadView(); ?>
-
+		<?php echo crypt("g278535814", "salt"); ?>
 		</div>
 	</div>
 </div>
