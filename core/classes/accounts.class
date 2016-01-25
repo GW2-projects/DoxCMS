@@ -114,15 +114,19 @@ SQL;
 	}
 	*/
 	//API Details
+
 	public function APIReturnMembers() {
 		$query = <<<SQL
 		SELECT uname
 		FROM {$this->tprefix}accounts
 SQL;
+		//$encode = array();
+
 		$resource = $this->db->db->prepare( $query );
 		$resource->execute();
 		foreach($resource as $row) {
-			echo $row['uname'];
+		$encode[] = $row['uname'];
 		}
-	}
+		echo json_encode($encode);  
+} 
 }
