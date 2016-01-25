@@ -1,0 +1,32 @@
+<?php
+class APIKey {
+	public $db;
+	public $tprefix;
+	public function __construct() {
+		$this->db = new DDB();
+		$this->tprefix = TPREFIX;
+	}
+	public function GetAPIKey() {
+		$query = <<<SQL
+		SELECT serial
+		FROM {$this->tprefix}apikeys
+		WHERE status = :enabled
+		AND serial = :serial
+SQL;
+		$resource = $this->db->db->prepare( $query );
+		$resource->execute( array (
+		":enabled"	=> 1,
+		":serial"	=> $_GET['apikey'],
+		));
+		if($resource->rowCount() == 0 ) {
+			die("API Key Invalid");
+		}
+		else {
+			//Do Nothing and let it run
+		}
+	}
+}
+function CheckAPIKey() {
+	$function = new APIKey();
+	$function->GetAPIKey();
+}

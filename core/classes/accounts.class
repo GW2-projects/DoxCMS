@@ -1,5 +1,4 @@
 <?php
-
 class Accounts {
 	public $db;
 	public $tprefix;
@@ -81,6 +80,54 @@ SQL;
 		$_SESSION['user']['id'] = $arg;
 	}
 	public function Register($arg,$arg2,$arg3) {
+		print_r($_POST);
+		self::CheckEmail($arg,$arg2,$arg3);
+	}
+	public function CheckEmail($arg,$arg2,$arg3) {
+		$query = <<<SQL
+		SELECT email
+		FROM {$this->tprefix}accounts
+		WHERE email = :arg3
+SQL;
+		$resource = $this->db->db->prepare( $query );
+			$resource->execute( array (
+			":arg3"	=> $arg3,));
+		if($resource->rowCount() == 0 ) {
+			self::CheckUsername($arg,$arg2,$arg3);
+		}
+		else {
+			echo "Email Already In Use";
+		}
+	}
+	public function CheckUsername($arg,$arg2,$arg3) {
+		$query = <<<SQL
+		SELECT uname
+		FROM {$this->tprefix}accounts
+		WHERE uname = :arg
+SQL;
+		$resource = $this->db->db->prepare( $query );
+		$resource->execute( array (
+		":arg"	=> $arg,
+		));
+		if($resource->rowCount() == 0 ) {
+			self::RegisterUser($arg,$arg2,$arg3);
+		}
+		else {
+			echo "Username In Use";
+		}
+	}
+	public function RegisterUser($arg,$arg2,$arg3) {
+		$query = <<<SQL
+		INSERT INTO {$this->tprefix}accounts(uname,password,email) 
+		VALUES(:arg,:arghash,:arg3)
+SQL;
+		$resource = $this->db->db->prepare( $query );
+		$resource->execute( array (
+		":arg"	=> $arg,
+		":arghash"	=> sha1(strtoupper($arg.':'.$arg2)),
+		":arg3"	=> $arg3,
+		));
+		
 	}
 	/*For Use As FTP Plugin Later On.
 	public function CreateUserFolder($arg,$arg2,$arg3) {
@@ -116,6 +163,8 @@ SQL;
 	//API Details
 
 	public function APIReturnMembers() {
+		require_once(dirname(__file__).'/apikey.class');
+		CheckAPIKey();
 		$query = <<<SQL
 		SELECT uname
 		FROM {$this->tprefix}accounts
