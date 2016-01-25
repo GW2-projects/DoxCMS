@@ -13,7 +13,7 @@
 	</div>
 </div>
 <div class="col-xs-3">
-<div class="alert alert-success">Modules Coming Soon</div>
+<?php LoadModule("RightSidebar"); ?>
 </div>
   </div>
 </div>

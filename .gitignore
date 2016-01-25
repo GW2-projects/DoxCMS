@@ -4,5 +4,8 @@ core/custom/*.hook
 core/custom/*.php
 app/extensions/*
 app/themes/*
+app/modules/*
+!app/modules/register_modal
+!app/plugins/register_modal
 !app/themes/default
 config.php
