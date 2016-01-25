@@ -1,3 +1,5 @@
 accounts/
-core/custom/*.custom
+core/custom/*.class
+core/custom/*.hook
+core/custom/*.php
 config.php
