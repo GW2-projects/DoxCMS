@@ -3,4 +3,6 @@ core/custom/*.class
 core/custom/*.hook
 core/custom/*.php
 app/extensions/*
+app/themes/*
+!app/themes/default
 config.php

@@ -113,4 +113,16 @@ SQL;
 		
 	}
 	*/
+	//API Details
+	public function APIReturnMembers() {
+		$query = <<<SQL
+		SELECT uname
+		FROM {$this->tprefix}accounts
+SQL;
+		$resource = $this->db->db->prepare( $query );
+		$resource->execute();
+		foreach($resource as $row) {
+			echo $row['uname'];
+		}
+	}
 }
